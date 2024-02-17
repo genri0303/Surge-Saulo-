@@ -1,0 +1,31 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches:
+      - main # Cambia esto por la rama en la que quieres que se active el despliegue
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install Surge
+        run: npm install -g surge
+      
+      - name: Build
+        run: |
+          # Aquí debes poner los comandos necesarios para construir tu sitio web
+          # Por ejemplo, si es un proyecto de React:
+          # npm install
+          # npm run build
+          # Ajusta estos comandos según las necesidades de tu proyecto
+
+      - name: Deploy to Surge
+        run: |
+          surge --project ./build --domain your-domain.surge.sh  
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }} # Debes configurar SURGE_LOGIN como un secreto en la configuración de tu repositorio
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} # Debes configurar SURGE_TOKEN como un secreto en la configuración de tu repositorio
